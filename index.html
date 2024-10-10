@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Login</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Teacher Login</h1>
+    <form id="loginForm">
+        <label for="teacherName">Teacher Name:</label>
+        <input type="text" id="teacherName" required>
+        <label for="password">Password:</label>
+        <input type="password" id="password" required>
+        <button type="submit">Login</button>
+    </form>
+    <div id="errorMessage" style="color: red;"></div>
+
+    <script>
+        const teachers = {
+            "Mr. Smith": { subject: "Math", password: "math123" },
+            "Ms. Johnson": { subject: "Science", password: "science123" },
+            "Mr. Lee": { subject: "English", password: "english123" },
+            "Ms. Garcia": { subject: "History", password: "history123" },
+            "Mr. Kim": { subject: "Geography", password: "geo123" },
+            "Ms. Patel": { subject: "Art", password: "art123" },
+            "Mr. Brown": { subject: "Physical Education", password: "pe123" }
+        };
+
+        document.getElementById("loginForm").addEventListener("submit", function (e) {
+            e.preventDefault();
+            const teacherName = document.getElementById("teacherName").value;
+            const password = document.getElementById("password").value;
+
+            if (teachers[teacherName] && teachers[teacherName].password === password) {
+                localStorage.setItem("subject", teachers[teacherName].subject);
+                localStorage.setItem("teacher", teacherName);
+                window.location.href = "upload.html";
+            } else {
+                document.getElementById("errorMessage").innerText = "Access Denied: Invalid Teacher Name or Password!";
+            }
+        });
+    </script>
+</body>
+</html>

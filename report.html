@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Report</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Student Report</h1>
+    <div id="reportContent"></div>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const reportData = JSON.parse(atob(params.get("data")));
+
+        if (reportData) {
+            document.getElementById("reportContent").innerHTML = `
+                <h2>${reportData.name}</h2>
+                <p><strong>Class:</strong> ${reportData.class}</p>
+                <p><strong>Subject:</strong> ${reportData.subject}</p>
+                <p><strong>Details:</strong> ${reportData.details}</p>
+                <p><strong>Teacher:</strong> ${reportData.teacher}</p>
+            `;
+        } else {
+            document.getElementById("reportContent").innerText = "No report data found.";
+        }
+    </script>
+</body>
+</html>

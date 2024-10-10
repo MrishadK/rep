@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Report</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Upload Report for <span id="subject"></span></h1>
+    <form id="uploadForm">
+        <label for="studentName">Student Name:</label>
+        <input type="text" id="studentName" required>
+        
+        <label for="class">Class:</label>
+        <select id="class" required>
+            <option value="">Select Class</option>
+            <option value="1">Class 1</option>
+            <option value="2">Class 2</option>
+            <option value="3">Class 3</option>
+            <option value="4">Class 4</option>
+            <option value="5">Class 5</option>
+            <option value="6">Class 6</option>
+            <option value="7">Class 7</option>
+            <option value="8">Class 8</option>
+        </select>
+
+        <label for="studentDetails">Details:</label>
+        <textarea id="studentDetails" required></textarea>
+        <button type="submit">Generate Report</button>
+    </form>
+    <div id="reportLink"></div>
+
+    <script>
+        const subject = localStorage.getItem("subject");
+        document.getElementById("subject").innerText = subject;
+
+        document.getElementById("uploadForm").addEventListener("submit", function (e) {
+            e.preventDefault();
+            const studentName = document.getElementById("studentName").value;
+            const studentClass = document.getElementById("class").value;
+            const studentDetails = document.getElementById("studentDetails").value;
+
+            const reportData = {
+                name: studentName,
+                class: studentClass,
+                details: studentDetails,
+                subject: subject,
+                teacher: localStorage.getItem("teacher"),
+            };
+
+            // Generate a unique link for the report
+            const reportLink = btoa(JSON.stringify(reportData));
+            const shareableLink = `${window.location.origin}/report.html?data=${reportLink}`;
+            document.getElementById("reportLink").innerHTML = `<a href="${shareableLink}" target="_blank">View Report</a>`;
+        });
+    </script>
+</body>
+</html>
